@@ -21,9 +21,12 @@
       {% endblock %}
     </article>
           <div>
-        <h2>Users</h2>
-        {% for user in users %}
-        <a href="/user/{{ user.name }}"><span class="stack">{{ user.name }}</span></a>
+        <h2>User</h2>
+        {{user.name}}
+      </div>
+             <h2>Tweets</h2>
+        {% for tweet in user.tweets %}
+        <p><span class="stack">{{tweet}}}</span></p>
         {% endfor %}
       </div>
     <!-- Optional stretch - check out some front-end JavaScript! -->
