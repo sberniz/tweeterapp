@@ -2,7 +2,7 @@
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from .models import User
-from .twitter import BASILICA
+from .twitter import vectorize_tweet
 from sklearn.metrics import accuracy_score
 
 def predict_user(user1_name, user2_name, tweet_text):
@@ -20,8 +20,8 @@ def predict_user(user1_name, user2_name, tweet_text):
                              np.zeros(len(user2.tweets))])
     log_reg = LogisticRegression().fit(embeddings, labels)
     # We've done our data science! Now to predict
-    tweet_embedding = BASILICA.embed_sentence(tweet_text, model='twitter')
-    y_pred = log_reg.predict(np.array(tweet_embedding).reshape(1, -1))
-    y_pred_proba = log_reg.predict_proba(np.array(tweet_embedding).reshape(1,-1))
+    tweet_embedding = vectorize_tweet(tweet_text).reshape(1,-1)
+    y_pred = log_reg.predict(tweet_embedding)
+    y_pred_proba = log_reg.predict_proba(tweet_embedding)
     #ac_score = log_reg.score(embeddings,y_pred)
     return y_pred, y_pred_proba
